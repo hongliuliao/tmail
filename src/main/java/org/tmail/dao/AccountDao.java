@@ -40,4 +40,8 @@ public class AccountDao {
 		return null;
 	}
 	
+	public Account getAccountById(long id) {
+		return this.jdbcTemplate.queryForObject("select id,email,email_password, user_id,last_message_num from tmail_accounts where id=?", new BeanPropertyRowMapper<Account>(Account.class));
+	}
+	
 }

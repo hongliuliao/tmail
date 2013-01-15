@@ -5,7 +5,8 @@ package org.tmail.dao;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.tmail.dao.MailReceiver;
+import org.tmail.model.Account;
+import org.tmail.model.TMail;
 
 
 /**
@@ -15,7 +16,9 @@ import org.tmail.dao.MailReceiver;
  */
 public class MailReceiverTest {
 
-	MailReceiver receiver = new MailReceiver("testliao4@163.com", "123456a", "pop.163.com");
+	MailReceiverDao receiver = new MailReceiverDao("testliao4@163.com", "123456a", "pop.163.com");
+	
+	private AccountDao accountDao = new AccountDao();
 	
 	@Before
 	public void init() {
@@ -28,7 +31,7 @@ public class MailReceiverTest {
 	}
 	
 	/**
-	 * Test method for {@link org.tmail.dao.MailReceiver#getMail()}.
+	 * Test method for {@link org.tmail.dao.MailReceiverDao#getMail()}.
 	 */
 	@Test
 	public void testGetRecentMailIntroductions() {
@@ -38,6 +41,13 @@ public class MailReceiverTest {
 	@Test
 	public void testCountNewMail() {
 		System.out.println(this.receiver.countNewMail(4));
+	}
+	
+	@Test
+	public void testGetTMail() {
+		Account account = accountDao.getAccountByEmail("testliao4@163.com");
+		TMail mail = this.receiver.getTMail(account, 1);
+		System.out.println(mail);
 	}
 	
 }

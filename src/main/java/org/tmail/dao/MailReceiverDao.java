@@ -19,6 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.tmail.model.MailIntroduction;
 import org.tmail.model.Account;
+import org.tmail.model.TMail;
 import org.tmail.utils.IReceiveHandler;
 import org.tmail.utils.MailTemplate;
 
@@ -28,9 +29,9 @@ import org.tmail.utils.MailTemplate;
  *
  * createTime:2013-1-10 下午6:47:23
  */
-public class MailReceiver {
+public class MailReceiverDao {
 
-	private static final Log log = LogFactory.getLog(MailReceiver.class);
+	private static final Log log = LogFactory.getLog(MailReceiverDao.class);
 	
 	private String userName;
 	
@@ -44,7 +45,7 @@ public class MailReceiver {
 	 * @param password
 	 * @param pop3Host
 	 */
-	public MailReceiver(String userName, String password, String pop3Host) {
+	public MailReceiverDao(String userName, String password, String pop3Host) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -76,6 +77,25 @@ public class MailReceiver {
 			}
 		});
 		
+	}
+	
+	public TMail getTMail(Account account, final int msgnum) {
+		return this.mailTemplate.receive(new IReceiveHandler() {
+			
+			@Override
+			public Object handler(Folder folder) throws Exception {
+				Message message = folder.getMessage(msgnum);
+				if(message == null) {
+					return null;
+				}
+				TMail mail = new TMail();
+				mail.setMailIntroduction(MailIntroduction.fromMessage(message));
+				if(message.getContent() instanceof String) {
+					mail.setContext((String) message.getContent());
+				}
+				return mail;
+			}
+		});
 	}
 	
 	public int countNewMail(final int lastMessageNumber) {
