@@ -24,7 +24,7 @@ public class AccountDaoTest extends BaseTest {
 	@Test
 	public void testAddAccount() {
 		Account account = new Account("testliao4@163.com", "123456a");
-		account.setLastMessageNum(2);
+		account.setLastMessageNum(1);
 		account.setUserId(1);
 		this.userDao.addAccount(account);
 	}

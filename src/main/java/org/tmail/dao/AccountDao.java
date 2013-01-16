@@ -40,8 +40,15 @@ public class AccountDao {
 		return null;
 	}
 	
+	private Account getUniqAccount(List<Account> accounts) {
+		if(CollectionUtils.isNotEmpty(accounts)) {
+			return accounts.get(0);
+		}
+		return null;
+	}
+	
 	public Account getAccountById(long id) {
-		return this.jdbcTemplate.queryForObject("select id,email,email_password, user_id,last_message_num from tmail_accounts where id=?", new BeanPropertyRowMapper<Account>(Account.class));
+		return getUniqAccount(this.jdbcTemplate.query("select id,email,email_password, user_id,last_message_num from tmail_accounts where id=?", new Object[] {id}, new BeanPropertyRowMapper<Account>(Account.class)));
 	}
 	
 }

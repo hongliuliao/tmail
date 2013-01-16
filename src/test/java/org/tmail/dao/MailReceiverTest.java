@@ -16,7 +16,7 @@ import org.tmail.model.TMail;
  */
 public class MailReceiverTest {
 
-	MailReceiverDao receiver = new MailReceiverDao("testliao4@163.com", "123456a", "pop.163.com");
+	MailReceiverDao receiver = new MailReceiverDao();
 	
 	private AccountDao accountDao = new AccountDao();
 	
@@ -35,12 +35,14 @@ public class MailReceiverTest {
 	 */
 	@Test
 	public void testGetRecentMailIntroductions() {
-		System.out.println(receiver.getRecentMailIntroductions(10));
+		Account account = this.accountDao.getAccountById(1L);
+		System.out.println(receiver.getRecentMailIntroductions(account, 10));
 	}
 
 	@Test
 	public void testCountNewMail() {
-		System.out.println(this.receiver.countNewMail(4));
+		Account account = this.accountDao.getAccountById(1L);
+		System.out.println(this.receiver.countNewMail(account, 4));
 	}
 	
 	@Test

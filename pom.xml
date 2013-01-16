@@ -72,5 +72,32 @@
 			<artifactId>commons-collections</artifactId>
 			<version>3.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.8.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.8.5</version>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat6-maven-plugin</artifactId>
+				<configuration>
+					<port>8080</port>
+					<url>http://localhost:8080/manager</url>
+					<username>tomcat</username>
+					<password>123456</password>
+					<path>/</path>
+					<uriEncoding>UTF-8</uriEncoding>
+				</configuration>
+				<version>2.0</version>
+			</plugin>
+		</plugins>
+	</build>
 </project>
