@@ -3,6 +3,8 @@
  */
 package org.tmail.dao;
 
+import javax.annotation.Resource;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.tmail.model.Account;
@@ -14,10 +16,11 @@ import org.tmail.model.TMail;
  *
  * createTime:2013-1-10 下午7:01:42
  */
-public class MailReceiverTest {
+public class MailReceiverTest extends BaseTest {
 
 	MailReceiverDao receiver = new MailReceiverDao();
 	
+	@Resource
 	private AccountDao accountDao = new AccountDao();
 	
 	@Before
