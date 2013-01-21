@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.h2.tools.Server;
 
 /**
+ * If want see data from browser, start it!
  * @author hongliuliao
  *
  * createTime:2013-1-14 下午3:17:46
