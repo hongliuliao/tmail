@@ -79,7 +79,7 @@ public class MailReceiverDao {
 	
 	public int countNewMail(Account account, final int lastMessageNumber) {
 		MailTemplate mailTemplate = new MailTemplate(account, "pop.163.com");
-		return mailTemplate.receive(new IReceiveHandler() {
+		Integer newMailCount = mailTemplate.receive(new IReceiveHandler() {
 			
 			@Override
 			public Integer handler(Folder folder) throws Exception {
@@ -89,6 +89,7 @@ public class MailReceiverDao {
 				return folder.getMessageCount() - lastMessageNumber;
 			}
 		});
+		return newMailCount.intValue();
 	}
 	
 	public List<MailIntroduction> getNewMail(Account account, final int lastMessageNumber) {

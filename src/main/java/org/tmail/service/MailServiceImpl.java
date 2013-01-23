@@ -3,12 +3,16 @@
  */
 package org.tmail.service;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.tmail.dao.AccountDao;
 import org.tmail.dao.MailReceiverDao;
 import org.tmail.model.Account;
+import org.tmail.model.MailIntroduction;
 import org.tmail.model.TMail;
 
 /**
@@ -31,5 +35,13 @@ public class MailServiceImpl {
 	
 	public Account getMailAccount(long accountId) {
 		return accountDao.getAccountById(accountId);
+	}
+	
+	public List<MailIntroduction> getRecentMailIntroductions(long accountId, int count) {
+		Account account = this.accountDao.getAccountById(accountId);
+		if(account == null) {
+			return Collections.emptyList();
+		}
+		return this.mailReceiverDao.getRecentMailIntroductions(account, count);
 	}
 }

@@ -9,6 +9,10 @@
 
 	<!-- 自动扫描组件 -->
 	<import resource="classpath:applicationContext-dao.xml" />
+	
+	<mvc:annotation-driven/> 
+	
+	<mvc:resources location="/js/" mapping="/js/**" />
 
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
