@@ -23,7 +23,7 @@
 	<br />
 	<div id="responseArea" style="width=40;rows=20"></div><br />
 	Command:<input id='command' type='text' value="list" />
-	<input id='sendCommandBtn' type='button' value='确定' />
+	<input id='sendCommandBtn' type='button' value='确定' /><div id='processArea'></div>
 	<hr />
 	<input type='text' /><br />
 	<textarea cols="40" rows="10"></textarea><br />

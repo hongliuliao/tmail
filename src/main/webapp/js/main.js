@@ -17,6 +17,7 @@ jQuery(function ($) {
 			alert("cmd can not be null!");
 			return;
 		}
+		$('#processArea').html('正在执行...')
 		if(cmd == 'list'){
 			getMailIntroductionsList();
 		}
@@ -37,12 +38,17 @@ jQuery(function ($) {
 	})
 });
 
+function showResponse(html) {
+	$('#responseArea').html(html);
+	$('#processArea').html('OK!')
+}
+
 function getMail(msgnum){
 	$.get('mail/' + msgnum,function(data){
 		var html = data.data.mailIntroduction.personal + ':' + data.data.mailIntroduction.subject + '<br />'
 		html = html + data.data.context
 		html = html.replace(/\n/g, '<br />')
-		$('#responseArea').html(html);
+		showResponse(html)
 	});
 };
 
@@ -50,7 +56,7 @@ function getHtmlMail(msgnum){
 	$.get('mail/' + msgnum,function(data){
 		var html = data.data.mailIntroduction.personal + ':' + data.data.mailIntroduction.subject + '<br />'
 		html = html + data.data.htmlContext
-		$('#responseArea').html(html);
+		showResponse(html)
 	});
 };
 
@@ -60,6 +66,6 @@ function getMailIntroductionsList(){
 		for(var i in data.data) {
 			html = html + '[' + data.data[i].messageNumber + ']' + data.data[i].subject + '<br />'
 		}
-		$('#responseArea').html(html)
+		showResponse(html)
 	});
 };
