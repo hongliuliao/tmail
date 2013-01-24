@@ -48,7 +48,7 @@ public class AccountDao {
 	}
 	
 	public Account getAccountById(long id) {
-		return getUniqAccount(this.jdbcTemplate.query("select id,email,email_password, user_id,last_message_num from tmail_accounts where id=?", new Object[] {id}, new BeanPropertyRowMapper<Account>(Account.class)));
+		return getUniqAccount(this.jdbcTemplate.query("select id,email,password, user_id,last_message_num from tmail_accounts where id=?", new Object[] {id}, new BeanPropertyRowMapper<Account>(Account.class)));
 	}
 	
 }

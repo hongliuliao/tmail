@@ -85,6 +85,7 @@ public class JacksonUtils {
 	 */
 	public static <T> T toBean(String content, Class<T> valueType) {
 		try {
+			getObjectMapper().configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
 			return objectMapper.readValue(content, valueType);
 		} catch (Exception e) {
 			throw new RuntimeException("Can not convert json string toBean!",e);
