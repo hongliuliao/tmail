@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import org.tmail.model.MailIntroduction;
 import org.tmail.model.TMail;
 import org.tmail.model.VCodeMsg;
 import org.tmail.service.MailServiceImpl;
+import org.tmail.utils.TMailConstants;
 
 /**
  * @author hongliuliao
@@ -43,9 +45,10 @@ public class TMailController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/mail/{accountId}")
-	public VCodeMsg getRecentMailIntroductions(@PathVariable("accountId") long accountId) {
-		List<MailIntroduction> introductions = this.MailServiceImpl.getRecentMailIntroductions(accountId, 10);
+	@RequestMapping(value = "/mail/list")
+	public VCodeMsg getMailIntroductions(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo) {
+		Account account = Account.parseFromJson(accountInfo);
+		List<MailIntroduction> introductions = this.MailServiceImpl.getMailIntroductions(account, 0, 10);
 		return VCodeMsg.SUCCESS.setData(introductions);
 	}
 	

@@ -32,8 +32,8 @@ public class MailReceiverDao {
 
 	private static final Log log = LogFactory.getLog(MailReceiverDao.class);
 	
-	public List<MailIntroduction> getRecentMailIntroductions(Account account, final int count){
-		MailTemplate mailTemplate = new MailTemplate(account, "pop.163.com");
+	public List<MailIntroduction> getMailIntroductions(Account account, final int start, final int count){
+		MailTemplate mailTemplate = new MailTemplate(account);
 		return mailTemplate.receive(new IReceiveHandler() {
 			
 			@Override
@@ -47,7 +47,7 @@ public class MailReceiverDao {
 				if(count > total) {
 					fetchCount = total;
 				}
-				for(int i=0;i<fetchCount;i++) {
+				for(int i=start;i<start + fetchCount;i++) {
 					Message message = folder.getMessage(total - i);
 					mailIntroductions.add(MailIntroduction.fromMessage(message));
 				}
@@ -58,7 +58,7 @@ public class MailReceiverDao {
 	}
 	
 	public TMail getTMail(Account account, final int msgnum) {
-		MailTemplate mailTemplate = new MailTemplate(account, "pop.163.com");
+		MailTemplate mailTemplate = new MailTemplate(account);
 		return mailTemplate.receive(new IReceiveHandler() {
 			
 			@Override
@@ -78,7 +78,7 @@ public class MailReceiverDao {
 	}
 	
 	public int countNewMail(Account account, final int lastMessageNumber) {
-		MailTemplate mailTemplate = new MailTemplate(account, "pop.163.com");
+		MailTemplate mailTemplate = new MailTemplate(account);
 		Integer newMailCount = mailTemplate.receive(new IReceiveHandler() {
 			
 			@Override
@@ -93,7 +93,7 @@ public class MailReceiverDao {
 	}
 	
 	public List<MailIntroduction> getNewMail(Account account, final int lastMessageNumber) {
-		MailTemplate mailTemplate = new MailTemplate(account, "pop.163.com");
+		MailTemplate mailTemplate = new MailTemplate(account);
 		return mailTemplate.receive(new IReceiveHandler() {
 			
 			@Override

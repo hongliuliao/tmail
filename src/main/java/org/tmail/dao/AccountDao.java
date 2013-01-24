@@ -29,7 +29,7 @@ public class AccountDao {
 	private JdbcTemplate jdbcTemplate;
 	
 	public void addAccount(Account account) {
-		this.jdbcTemplate.update(ADD_ACCOUNT_INFO, account.getEmail(), account.getEmailPassword(), account.getUserId(), account.getLastMessageNum());
+		this.jdbcTemplate.update(ADD_ACCOUNT_INFO, account.getEmail(), account.getPassword(), account.getUserId(), account.getLastMessageNum());
 	}
 	
 	public Account getAccountByEmail(String userName) {

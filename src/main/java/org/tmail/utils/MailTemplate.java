@@ -25,16 +25,13 @@ public class MailTemplate {
 	
 	private Account userInfo;
 	
-	private String pop3Host;
-	
 	/**
 	 * @param userInfo
 	 * @param pop3Host
 	 */
-	public MailTemplate(Account userInfo, String pop3Host) {
+	public MailTemplate(Account userInfo) {
 		super();
 		this.userInfo = userInfo;
-		this.pop3Host = pop3Host;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -42,9 +39,9 @@ public class MailTemplate {
 		Folder folder = null;
 		Store store = null;
 		try {
-			Session session = Session.getInstance(this.getMailProperties(pop3Host));
+			Session session = Session.getInstance(this.getMailProperties(userInfo.getPop3Host()));
 			store = session.getStore("pop3");
-			store.connect(userInfo.getEmail(), userInfo.getEmailPassword()); 
+			store.connect(userInfo.getEmail(), userInfo.getPassword()); 
 			folder = store.getFolder("INBOX");
 			folder.open(Folder.READ_WRITE);
 			int total = folder.getMessageCount();

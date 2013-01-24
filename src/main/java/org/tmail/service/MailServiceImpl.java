@@ -37,11 +37,10 @@ public class MailServiceImpl {
 		return accountDao.getAccountById(accountId);
 	}
 	
-	public List<MailIntroduction> getRecentMailIntroductions(long accountId, int count) {
-		Account account = this.accountDao.getAccountById(accountId);
+	public List<MailIntroduction> getMailIntroductions(Account account, int start, int count) {
 		if(account == null) {
 			return Collections.emptyList();
 		}
-		return this.mailReceiverDao.getRecentMailIntroductions(account, count);
+		return this.mailReceiverDao.getMailIntroductions(account, start, count);
 	}
 }

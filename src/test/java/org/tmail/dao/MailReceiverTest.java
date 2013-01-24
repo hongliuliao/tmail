@@ -39,7 +39,7 @@ public class MailReceiverTest extends BaseTest {
 	@Test
 	public void testGetRecentMailIntroductions() {
 		Account account = this.accountDao.getAccountById(1L);
-		System.out.println(receiver.getRecentMailIntroductions(account, 10));
+		System.out.println(receiver.getMailIntroductions(account, 0, 10));
 	}
 
 	@Test

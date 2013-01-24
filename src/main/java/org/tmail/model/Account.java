@@ -5,6 +5,7 @@ package org.tmail.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.tmail.utils.JacksonUtils;
 
 /**
  * @author hongliuliao
@@ -16,7 +17,7 @@ public class Account {
 	private int id;
 	
 	private String email;
-	private String emailPassword;
+	private String password;
 	
 	private int userId;
 	
@@ -35,7 +36,7 @@ public class Account {
 	public Account(String email, String password) {
 		super();
 		this.email = email;
-		this.emailPassword = password;
+		this.password = password;
 	}
 	/**
 	 * @return the userName
@@ -52,14 +53,14 @@ public class Account {
 	/**
 	 * @return the password
 	 */
-	public String getEmailPassword() {
-		return emailPassword;
+	public String getPassword() {
+		return password;
 	}
 	/**
 	 * @param password the password to set
 	 */
-	public void setEmailPassword(String password) {
-		this.emailPassword = password;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	/**
 	 * @return the lastMessageNum
@@ -105,6 +106,23 @@ public class Account {
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	
+	public String getPop3Host() {
+		if(this.email.endsWith("@163.com")) {
+			return "pop3.163.com";
+		}
+		if(this.email.endsWith("@qq.com")) {
+			return "pop.qq.com";
+		}
+		if(this.email.endsWith("@sohu-inc.com")) {
+			return "mail.sohu-inc.com";
+		}
+		throw new IllegalArgumentException("Unsupport email:" + this.email);
+	}
+	
+	public static Account parseFromJson(String accountInfo) {
+		return JacksonUtils.toBean(accountInfo, Account.class);
 	}
 	
 }

@@ -5,17 +5,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hello world!</title>
-<script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="js/common/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="js/common/json2.js"></script>
+<script type="text/javascript" src="js/common/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/common/jquery.jsoncookie.js"></script>
+
 <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
-	hello world!<br />
-	<textarea id="responseArea" cols="40" rows="20"></textarea><br />
+	<form id='loginForm'>
+		email:<input id='accountEmail' type='text' name="email" value="" />
+		password:<input id='accountPassword' name="password" type='password' />
+		<input id='addAccountBtn' type='button' value="添加" >
+	</form>
+	<div id='accountInfo'></div>
+	
+	<br />
+	<div id="responseArea" style="width=40;rows=20"></div><br />
 	<input type='button' onclick="refreshInfo()" value="刷新" />
-	<input type='button' onclick="getRecentMailIntroductions()" value="刷新2" />
+	<input type='button' onclick="getMailIntroductionsList()" value="刷新2" />
 	<hr />
 	<input type='text' /><br />
 	<textarea cols="40" rows="10"></textarea><br />
 	<input type='button' value="确定" />
+	
+	
 </body>
 </html>
