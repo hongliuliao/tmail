@@ -14,13 +14,12 @@
 	
 	<mvc:resources location="/js/" mapping="/js/**" />
 
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" >
-        <property name="interceptors">
-            <list>
-                <bean class="org.tmail.interceptor.LoginInterceptor" />
-            </list>
-        </property>
-    </bean>
+    <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/mail/**" />
+			<bean class="org.tmail.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">

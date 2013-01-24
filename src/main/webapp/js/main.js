@@ -17,6 +17,10 @@ jQuery(function ($) {
 			alert("cmd can not be null!");
 			return;
 		}
+		if($.cookie('ACCOUNT_INFO') == null || $.cookie('ACCOUNT_INFO') == '') {
+			alert('请登录后操作!')
+			return;
+		}
 		$('#processArea').html('正在执行...')
 		if(cmd == 'list'){
 			getMailIntroductionsList();
