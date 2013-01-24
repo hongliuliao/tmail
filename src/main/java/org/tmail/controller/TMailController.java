@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.tmail.constants.TMailConstants;
 import org.tmail.model.Account;
 import org.tmail.model.MailIntroduction;
 import org.tmail.model.TMail;
 import org.tmail.model.VCodeMsg;
 import org.tmail.service.MailServiceImpl;
-import org.tmail.utils.TMailConstants;
 
 /**
  * @author hongliuliao
@@ -31,9 +31,10 @@ public class TMailController {
 	private MailServiceImpl MailServiceImpl;
 	
 	@ResponseBody
-	@RequestMapping(value = "/mail/{accountId}/{msgnum}")
-	public VCodeMsg getTMail(@PathVariable("accountId") long accountId, @PathVariable("msgnum") int msgnum) {
-		Account account = MailServiceImpl.getMailAccount(accountId);
+	@RequestMapping(value = "/mail/{msgnum}")
+	public VCodeMsg getTMail(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo,
+			@PathVariable("msgnum") int msgnum) {
+		Account account = Account.parseFromJson(accountInfo);
 		if(account == null) {
 			return VCodeMsg.failOf("account not found!");
 		}

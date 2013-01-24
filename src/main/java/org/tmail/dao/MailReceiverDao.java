@@ -3,13 +3,17 @@
  */
 package org.tmail.dao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.logging.Log;
@@ -72,10 +76,45 @@ public class MailReceiverDao {
 				if(message.getContent() instanceof String) {
 					mail.setContext((String) message.getContent());
 				}
+				if(message.getContent() instanceof Multipart) {
+					Multipart multipart = (Multipart)message.getContent();
+					StringBuilder context = new StringBuilder();
+					StringBuilder htmlContext = new StringBuilder();
+					parseMultipart(context, htmlContext, multipart);
+					mail.setContext(context.toString());
+					mail.setHtmlContext(htmlContext.toString());
+				}
 				return mail;
 			}
 		});
 	}
+	
+	/** 
+     * 对复杂邮件的解析 
+     * @param multipart 
+     * @throws MessagingException 
+     * @throws IOException 
+     */  
+    public static void parseMultipart(StringBuilder context, StringBuilder htmlContext, Multipart multipart) throws MessagingException, IOException {  
+        int count = multipart.getCount();  
+        for (int idx=0;idx<count;idx++) {  
+            BodyPart bodyPart = multipart.getBodyPart(idx);  
+            if (bodyPart.isMimeType("text/plain")) {  
+            	context.append(bodyPart.getContent());  
+            } else if(bodyPart.isMimeType("text/html")) {  
+            	htmlContext.append(bodyPart.getContent());  
+            } else if(bodyPart.isMimeType("multipart/*")) {  
+                Multipart mpart = (Multipart)bodyPart.getContent();  
+                parseMultipart(context, htmlContext, mpart);  
+            } else if (bodyPart.isMimeType("application/octet-stream")) {  
+                String disposition = bodyPart.getDisposition();  
+                if (disposition.equalsIgnoreCase(BodyPart.ATTACHMENT) || disposition.equalsIgnoreCase(BodyPart.INLINE)) {  
+                    String fileName = bodyPart.getFileName();  
+                    context.append("[附件]:" + fileName);
+                }
+            }  
+        }  
+    }  
 	
 	public int countNewMail(Account account, final int lastMessageNumber) {
 		MailTemplate mailTemplate = new MailTemplate(account);

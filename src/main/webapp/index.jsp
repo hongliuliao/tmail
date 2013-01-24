@@ -22,8 +22,8 @@
 	
 	<br />
 	<div id="responseArea" style="width=40;rows=20"></div><br />
-	<input type='button' onclick="refreshInfo()" value="刷新" />
-	<input type='button' onclick="getMailIntroductionsList()" value="刷新2" />
+	Command:<input id='command' type='text' value="list" />
+	<input id='sendCommandBtn' type='button' value='确定' />
 	<hr />
 	<input type='text' /><br />
 	<textarea cols="40" rows="10"></textarea><br />

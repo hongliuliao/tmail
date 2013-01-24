@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
-import org.tmail.utils.TMailConstants;
+import org.tmail.constants.TMailConstants;
 
 /**
  * check user is logiin

@@ -16,6 +16,8 @@ public class TMail {
 	private MailIntroduction mailIntroduction;
 	
 	private String context;
+	
+	private String htmlContext;
 
 	/**
 	 * @return the context
@@ -48,5 +50,19 @@ public class TMail {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+
+	/**
+	 * @return the htmlContext
+	 */
+	public String getHtmlContext() {
+		return htmlContext;
+	}
+
+	/**
+	 * @param htmlContext the htmlContext to set
+	 */
+	public void setHtmlContext(String htmlContext) {
+		this.htmlContext = htmlContext;
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.tmail.utils;
+package org.tmail.constants;
 
 /**
  * @author hongliuliao
