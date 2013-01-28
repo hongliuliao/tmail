@@ -11,14 +11,5 @@
 
 
 	<context:component-scan base-package="org.tmail" />
-
-	<bean id="h2Datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="url" value="jdbc:h2:~/h2data/tmail;MODE=MySQL;AUTO_SERVER=TRUE"></property>
-		<property name="username" value="sa"></property>
-	</bean>
-	
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="h2Datasource"></property>
-	</bean>
     
 </beans>

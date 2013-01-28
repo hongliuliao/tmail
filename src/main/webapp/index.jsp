@@ -25,9 +25,10 @@
 	Command:<input id='command' type='text' value="list" />
 	<input id='sendCommandBtn' type='button' value='确定' /><div id='processArea'></div>
 	<hr />
-	<input type='text' /><br />
-	<textarea cols="40" rows="10"></textarea><br />
-	<input type='button' value="确定" />
+	收件人:<input id='toText' type='text' /><br />
+	主题:<input id='subjectText' type='text' /><br />
+	内容:<textarea id="contextTextArea" cols="40" rows="10"></textarea><br />
+	<input id='sendMailBtn' type='button' value="确定" />
 	
 	
 </body>

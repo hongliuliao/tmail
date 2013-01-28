@@ -14,9 +14,9 @@ import org.tmail.model.TMail;
  *
  * createTime:2013-1-10 下午7:01:42
  */
-public class MailReceiverTest extends BaseTest {
+public class MailDaoTest extends BaseTest {
 
-	MailReceiverDao receiver = new MailReceiverDao();
+	MailDao mailDao = new MailDao();
 	
 	@Before
 	public void init() {
@@ -29,25 +29,31 @@ public class MailReceiverTest extends BaseTest {
 	}
 	
 	/**
-	 * Test method for {@link org.tmail.dao.MailReceiverDao#getMail()}.
+	 * Test method for {@link org.tmail.dao.MailDao#getMail()}.
 	 */
 	@Test
 	public void testGetRecentMailIntroductions() {
 		Account account = Account.parseFromJson("{'email':'testliao4@163.com','password':'123456a'}");
-		System.out.println(receiver.getMailIntroductions(account, 0, 10));
+		System.out.println(mailDao.getMailIntroductions(account, 0, 10));
 	}
 
 	@Test
 	public void testCountNewMail() {
 		Account account = Account.parseFromJson("{'email':'testliao4@163.com','password':'123456a'}");
-		System.out.println(this.receiver.countNewMail(account, 4));
+		System.out.println(this.mailDao.countNewMail(account, 4));
 	}
 	
 	@Test
 	public void testGetTMail() {
 		Account account = Account.parseFromJson("{'email':'testliao4@163.com','password':'123456a'}");
-		TMail mail = this.receiver.getTMail(account, 1);
+		TMail mail = this.mailDao.getTMail(account, 1);
 		System.out.println(mail);
+	}
+	
+	@Test
+	public void testSendMail() {
+		Account account = Account.parseFromJson("{'email':'testliao4@163.com','password':'123456a'}");
+		this.mailDao.sendMail(account, "357857613@qq.com", "test", "test2");
 	}
 	
 }

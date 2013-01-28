@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tmail.constants.Charsets;
@@ -37,7 +38,7 @@ public class TMailController {
 	private MailServiceImpl MailServiceImpl;
 	
 	@ResponseBody
-	@RequestMapping(value = "/mail/{msgnum}")
+	@RequestMapping(value = "/mail/{msgnum:\\d+}", method = RequestMethod.GET)
 	public VCodeMsg getTMail(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo,
 			@PathVariable("msgnum") int msgnum) {
 		Account account = Account.parseFromJson(accountInfo);
@@ -73,6 +74,17 @@ public class TMailController {
 		response.setContentType(attachment.getContextType());
 		response.setHeader("Content-disposition", "attachment; filename=" + new String(attachment.getName().getBytes(Charsets.UTF8), Charsets.ISO8859));
 		IOUtils.copy(attachment.getInputStream(), response.getOutputStream());
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/mail/", method = RequestMethod.POST)
+	public VCodeMsg sendMail(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo,
+			@RequestParam("tomail") String toMail,
+			@RequestParam("subject") String subject,
+			@RequestParam("context") String context) {
+		Account account = Account.parseFromJson(accountInfo);
+		this.MailServiceImpl.sendMail(account, toMail, subject, context);
+		return VCodeMsg.SUCCESS;
 	}
 	
 }

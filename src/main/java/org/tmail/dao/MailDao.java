@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import javax.mail.BodyPart;
 import javax.mail.Folder;
@@ -19,6 +21,8 @@ import javax.mail.internet.MimeUtility;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Repository;
 import org.tmail.model.Account;
 import org.tmail.model.Attachment;
@@ -34,9 +38,9 @@ import org.tmail.utils.MailTemplate;
  * createTime:2013-1-10 下午6:47:23
  */
 @Repository
-public class MailReceiverDao {
+public class MailDao {
 
-	private static final Log log = LogFactory.getLog(MailReceiverDao.class);
+	private static final Log log = LogFactory.getLog(MailDao.class);
 	
 	public List<MailIntroduction> getMailIntroductions(Account account, final int start, final int count){
 		MailTemplate mailTemplate = new MailTemplate(account);
@@ -167,6 +171,49 @@ public class MailReceiverDao {
 			}
 		});
 	}
+	
+	public void sendMail(Account account, String toMail, String subject, String context) {
+		JavaMailSenderImpl mailSender = createSender(account);
+		SimpleMailMessage message = createMessage(account, toMail, subject, context);
+		mailSender.send(message);
+	}
 
+	/**
+	 * @param account
+	 * @param replyTo
+	 * @param subject
+	 * @param context
+	 * @return
+	 */
+	private SimpleMailMessage createMessage(Account account, String replyTo,
+			String subject, String context) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom(account.getEmail());
+		message.setReplyTo(replyTo);
+		message.setSentDate(new Date());
+		message.setSubject(subject);
+		message.setText(context);
+		message.setTo(replyTo);
+		return message;
+	}
+
+	/**
+	 * @param account
+	 * @return
+	 */
+	private JavaMailSenderImpl createSender(Account account) {
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setDefaultEncoding("utf-8");
+		mailSender.setHost(account.getSmtpHost());
+		mailSender.setPassword(account.getPassword());
+		mailSender.setUsername(account.getEmail());
+		Properties javaMailProperties = new Properties();
+		javaMailProperties.setProperty("mail.smtp.auth", "true");
+		javaMailProperties.setProperty("mail.smtp.timeout", "25000");
+		mailSender.setJavaMailProperties(javaMailProperties);
+		return mailSender;
+	}
+
+	
 	
 }

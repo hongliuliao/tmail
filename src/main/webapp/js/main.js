@@ -35,12 +35,38 @@ jQuery(function ($) {
 		}
 	})
 	
+	$('#sendMailBtn').bind('click', function(){
+		var toMail = $('#toText').val()
+		var subjectText = $('#subjectText').val()
+		var context = $('#contextTextArea').val()
+		if(!isValid([toMail, subjectText, context])){
+			alert("参数不合法!")
+			return
+		}
+		$.post("mail/", { 'subject': subjectText, 'context': context, 'tomail': toMail } ,function(data){
+			if(data.code == 1){
+				alert('success')
+			}else{
+				alert(data.msg)
+			}
+		});
+	})
+	
 	$('#command').bind('keyup', function(){
 		if(event.keyCode==13){
 			$('#sendCommandBtn').click();
 		}
 	})
 });
+
+function isValid(objs){
+	for(var i=0;i<objs.length;i++){
+		if(objs[i] == null || objs[i] == undefined || objs[i] == ''){
+			return false;
+		}
+	}
+	return true
+}
 
 function showResponse(html) {
 	$('#responseArea').html(html);
