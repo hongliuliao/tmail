@@ -4,6 +4,7 @@
 package org.tmail.dao;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.tmail.model.Account;
 import org.tmail.model.TMail;
@@ -50,7 +51,7 @@ public class MailDaoTest extends BaseTest {
 		System.out.println(mail);
 	}
 	
-	@Test
+	@Ignore
 	public void testSendMail() {
 		Account account = Account.parseFromJson("{'email':'testliao4@163.com','password':'123456a'}");
 		this.mailDao.sendMail(account, "357857613@qq.com", "test", "test2");
