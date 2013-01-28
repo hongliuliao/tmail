@@ -80,7 +80,9 @@ function isValid(objs){
 function showResponse(html, tmail) {
 	$('#responseArea').html(html);
 	$('#processArea').html('OK!')
-	$('#toText').val(tmail.mailIntroduction.from) 
+	if(isValid([tmail])){
+		$('#toText').val(tmail.mailIntroduction.from) 
+	}
 }
 
 function getMail(msgnum){
