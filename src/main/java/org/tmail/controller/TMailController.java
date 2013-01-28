@@ -3,17 +3,23 @@
  */
 package org.tmail.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.tmail.constants.Charsets;
 import org.tmail.constants.TMailConstants;
 import org.tmail.model.Account;
+import org.tmail.model.Attachment;
 import org.tmail.model.MailIntroduction;
 import org.tmail.model.TMail;
 import org.tmail.model.VCodeMsg;
@@ -51,6 +57,22 @@ public class TMailController {
 		Account account = Account.parseFromJson(accountInfo);
 		List<MailIntroduction> introductions = this.MailServiceImpl.getMailIntroductions(account, 0, 10);
 		return VCodeMsg.SUCCESS.setData(introductions);
+	}
+	
+	@RequestMapping(value = "/mail/{msgnum}/attachment")
+	public void getMailAttachment(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo,
+			@PathVariable("msgnum") int msgnum,
+			@RequestParam("filename") String filename,
+			HttpServletResponse response) throws IOException {
+		Account account = Account.parseFromJson(accountInfo);
+		filename = new String(filename.getBytes(Charsets.ISO8859), Charsets.UTF8);
+		Attachment attachment = this.MailServiceImpl.getAttachment(account, msgnum, filename);
+		if(attachment == null) {
+			throw new RuntimeException("file not found!");
+		}
+		response.setContentType(attachment.getContextType());
+		response.setHeader("Content-disposition", "attachment; filename=" + new String(attachment.getName().getBytes(Charsets.UTF8), Charsets.ISO8859));
+		IOUtils.copy(attachment.getInputStream(), response.getOutputStream());
 	}
 	
 }

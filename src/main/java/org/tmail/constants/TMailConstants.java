@@ -3,6 +3,7 @@
  */
 package org.tmail.constants;
 
+
 /**
  * @author hongliuliao
  *
@@ -12,4 +13,5 @@ public class TMailConstants {
 
 	public static final String LOGIN_ACCOUNT_COOKIE = "ACCOUNT_INFO";
 	
+	public static final String AJAX_REQUEST = "application/json";
 }

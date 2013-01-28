@@ -52,6 +52,7 @@ function getMail(msgnum){
 		var html = data.data.mailIntroduction.personal + ':' + data.data.mailIntroduction.subject + '<br />'
 		html = html + data.data.context
 		html = html.replace(/\n/g, '<br />')
+		html = html + getAttachmentInfo(data.data)
 		showResponse(html)
 	});
 };
@@ -60,9 +61,18 @@ function getHtmlMail(msgnum){
 	$.get('mail/' + msgnum,function(data){
 		var html = data.data.mailIntroduction.personal + ':' + data.data.mailIntroduction.subject + '<br />'
 		html = html + data.data.htmlContext
+		html = html + getAttachmentInfo(data.data)
 		showResponse(html)
 	});
 };
+
+function getAttachmentInfo(tmail) {
+	var html = ''
+	for(var i=0;i<tmail.attachmentNames.length;i++) {
+		html = html + '[附件:]<a href="mail/' + tmail.mailIntroduction.messageNumber + '/attachment?filename=' + encodeURIComponent(tmail.attachmentNames[i]) + '">' + tmail.attachmentNames[i] + '</a><br />'
+	}
+	return html
+}
 
 function getMailIntroductionsList(){
 	$.get('mail/list',function(data){

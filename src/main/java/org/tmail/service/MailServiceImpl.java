@@ -8,10 +8,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.tmail.dao.AccountDao;
 import org.tmail.dao.MailReceiverDao;
 import org.tmail.model.Account;
+import org.tmail.model.Attachment;
 import org.tmail.model.MailIntroduction;
 import org.tmail.model.TMail;
 
@@ -42,5 +44,18 @@ public class MailServiceImpl {
 			return Collections.emptyList();
 		}
 		return this.mailReceiverDao.getMailIntroductions(account, start, count);
+	}
+	
+	public Attachment getAttachment(Account account, int msgnum, String filename) {
+		TMail tmail = this.getTMail(account, msgnum);
+		if(CollectionUtils.isEmpty(tmail.getAttachments())) {
+			return null;
+		}
+		for (Attachment attachment : tmail.getAttachments()) {
+			if(attachment.getName().equals(filename)) {
+				return attachment;
+			}
+		}
+		return null;
 	}
 }

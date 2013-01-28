@@ -15,11 +15,13 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeUtility;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 import org.tmail.model.Account;
+import org.tmail.model.Attachment;
 import org.tmail.model.MailIntroduction;
 import org.tmail.model.TMail;
 import org.tmail.utils.IReceiveHandler;
@@ -78,11 +80,7 @@ public class MailReceiverDao {
 				}
 				if(message.getContent() instanceof Multipart) {
 					Multipart multipart = (Multipart)message.getContent();
-					StringBuilder context = new StringBuilder();
-					StringBuilder htmlContext = new StringBuilder();
-					parseMultipart(context, htmlContext, multipart);
-					mail.setContext(context.toString());
-					mail.setHtmlContext(htmlContext.toString());
+					parseMultipart(mail, multipart);
 				}
 				return mail;
 			}
@@ -95,24 +93,27 @@ public class MailReceiverDao {
      * @throws MessagingException 
      * @throws IOException 
      */  
-    public static void parseMultipart(StringBuilder context, StringBuilder htmlContext, Multipart multipart) throws MessagingException, IOException {  
+    public static void parseMultipart(TMail mail, Multipart multipart) throws MessagingException, IOException {  
         int count = multipart.getCount();  
         for (int idx=0;idx<count;idx++) {  
             BodyPart bodyPart = multipart.getBodyPart(idx);  
             if (bodyPart.isMimeType("text/plain")) {  
-            	context.append(bodyPart.getContent());  
+            	mail.addContext((String)bodyPart.getContent());  
             } else if(bodyPart.isMimeType("text/html")) {  
-            	htmlContext.append(bodyPart.getContent());  
+            	mail.addHtmlContext((String)bodyPart.getContent());  
             } else if(bodyPart.isMimeType("multipart/*")) {  
-                Multipart mpart = (Multipart)bodyPart.getContent();  
-                parseMultipart(context, htmlContext, mpart);  
-            } else if (bodyPart.isMimeType("application/octet-stream")) {  
-                String disposition = bodyPart.getDisposition();  
-                if (disposition.equalsIgnoreCase(BodyPart.ATTACHMENT) || disposition.equalsIgnoreCase(BodyPart.INLINE)) {  
+                Multipart mpart = (Multipart)bodyPart.getContent(); 
+                parseMultipart(mail, mpart); 
+            } else if(bodyPart.getContentType().startsWith("application/")) {
+            	String disposition = bodyPart.getDisposition();
+            	if (disposition.equalsIgnoreCase(BodyPart.ATTACHMENT) || disposition.equalsIgnoreCase(BodyPart.INLINE)) {  
                     String fileName = bodyPart.getFileName();  
-                    context.append("[附件]:" + fileName);
+                    if (fileName.toLowerCase().indexOf("gb2312") != -1) {    
+                        fileName = MimeUtility.decodeText(fileName);    
+                    }
+                    mail.addAttachment(new Attachment(fileName, bodyPart.getInputStream(), bodyPart.getContentType()));
                 }
-            }  
+            }
         }  
     }  
 	

@@ -3,6 +3,11 @@
  */
 package org.tmail.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -18,6 +23,8 @@ public class TMail {
 	private String context;
 	
 	private String htmlContext;
+	
+	private List<Attachment> attachments; 
 
 	/**
 	 * @return the context
@@ -33,6 +40,13 @@ public class TMail {
 		this.context = context;
 	}
 
+	public void addContext(String context) {
+		if(this.context == null) {
+			this.context = "";
+		}
+		this.context = this.context + context;
+	}
+	
 	/**
 	 * @return the mailIntroduction
 	 */
@@ -59,10 +73,53 @@ public class TMail {
 		return htmlContext;
 	}
 
+	public void addHtmlContext(String htmlContext) {
+		if(this.htmlContext == null) {
+			this.htmlContext = "";
+		}
+		this.htmlContext = this.htmlContext + htmlContext;
+	}
+	
 	/**
 	 * @param htmlContext the htmlContext to set
 	 */
 	public void setHtmlContext(String htmlContext) {
 		this.htmlContext = htmlContext;
 	}
+
+	/**
+	 * @return the attachmentNames
+	 */
+	public List<String> getAttachmentNames() {
+		if(CollectionUtils.isEmpty(attachments)) {
+			return Collections.emptyList();
+		}
+		List<String> attachmentNames = new ArrayList<String>();
+		for (Attachment attachment : this.attachments) {
+			attachmentNames.add(attachment.getName());
+		}
+		return attachmentNames;
+	}
+
+	public void addAttachment(Attachment attachment) {
+		if(this.attachments == null) {
+			this.attachments = new ArrayList<Attachment>();
+		} 
+		this.attachments.add(attachment);
+	}
+
+	/**
+	 * @return the attachments
+	 */
+	public List<Attachment> getAttachments() {
+		return attachments;
+	}
+
+	/**
+	 * @param attachments the attachments to set
+	 */
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
+	}
+	
 }
