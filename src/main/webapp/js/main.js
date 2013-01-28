@@ -63,7 +63,7 @@ jQuery(function ($) {
 
 function showAccountInfo() {
 	var accountInfo = $.JSONCookie('ACCOUNT_INFO');
-	if(isValid(accountInfo)){
+	if(isValid([accountInfo.email])){
 		$('#accountInfo').html('当前用户:' + accountInfo.email)
 	}
 }
