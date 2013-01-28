@@ -1,4 +1,6 @@
 jQuery(function ($) {
+	showAccountInfo()
+	
 	$('#addAccountBtn').click(function(){
 		var emailTextField = $('#accountEmail').val();
 		var password = $('#accountPassword').val();
@@ -59,6 +61,13 @@ jQuery(function ($) {
 	})
 });
 
+function showAccountInfo() {
+	var accountInfo = $.JSONCookie('ACCOUNT_INFO');
+	if(isValid(accountInfo)){
+		$('#accountInfo').html('当前用户:' + accountInfo.email)
+	}
+}
+
 function isValid(objs){
 	for(var i=0;i<objs.length;i++){
 		if(objs[i] == null || objs[i] == undefined || objs[i] == ''){
@@ -68,9 +77,10 @@ function isValid(objs){
 	return true
 }
 
-function showResponse(html) {
+function showResponse(html, tmail) {
 	$('#responseArea').html(html);
 	$('#processArea').html('OK!')
+	$('#toText').val(tmail.mailIntroduction.from) 
 }
 
 function getMail(msgnum){
@@ -79,7 +89,7 @@ function getMail(msgnum){
 		html = html + data.data.context
 		html = html.replace(/\n/g, '<br />')
 		html = html + getAttachmentInfo(data.data)
-		showResponse(html)
+		showResponse(html, data.data)
 	});
 };
 
@@ -88,7 +98,7 @@ function getHtmlMail(msgnum){
 		var html = data.data.mailIntroduction.personal + ':' + data.data.mailIntroduction.subject + '<br />'
 		html = html + data.data.htmlContext
 		html = html + getAttachmentInfo(data.data)
-		showResponse(html)
+		showResponse(html, data.data)
 	});
 };
 
