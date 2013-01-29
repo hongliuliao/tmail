@@ -55,4 +55,9 @@ public class MailServiceImpl {
 	public void sendMail(Account account, String toMail, String subject, String context) {
 		this.mailDao.sendMail(account, toMail, subject, context);
 	}
+	
+	public int getNewMailCount(Account account) {
+		return this.mailDao.getNewMail(account, account.getLastMessageNum()).size();
+	}
+	
 }

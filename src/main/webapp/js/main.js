@@ -133,6 +133,8 @@ function getMailIntroductionsList(){
 		html = html + '</ul>'
 		showResponse(html)
 		bindingMail()
+		document.title = 'Hello World!'
+		stopScrollTask()
 	});
 };
 

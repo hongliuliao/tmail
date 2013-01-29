@@ -136,7 +136,7 @@ public class MailDao {
 		return newMailCount.intValue();
 	}
 	
-	public List<MailIntroduction> getNewMail(Account account, final int lastMessageNumber) {
+	public List<MailIntroduction> getNewMail(final Account account, final int lastMessageNumber) {
 		MailTemplate mailTemplate = new MailTemplate(account);
 		return mailTemplate.receive(new IReceiveHandler() {
 			
@@ -147,6 +147,7 @@ public class MailDao {
 				if(total == 0 || lastMessageNumber >= total) {
 					return Collections.emptyList();
 				}
+				account.setLastMessageNum(total);
 				int fetchCount = total - lastMessageNumber;
 				if(fetchCount > 10) {
 					fetchCount = 10;

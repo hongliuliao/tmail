@@ -4,7 +4,9 @@
 package org.tmail.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -94,6 +96,17 @@ public class TMailController {
 		Account account = Account.parseFromJson(accountInfo);
 		this.MailServiceImpl.sendMail(account, toMail, subject, context);
 		return VCodeMsg.SUCCESS;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/mail/new", method = RequestMethod.GET)
+	public VCodeMsg newMail(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo) {
+		Account account = Account.parseFromJson(accountInfo);
+		int newMailCount = this.MailServiceImpl.getNewMailCount(account);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("newMailCount", newMailCount);
+		params.put("lastMessageNum", account.getLastMessageNum());
+		return VCodeMsg.SUCCESS.setData(params);
 	}
 	
 }

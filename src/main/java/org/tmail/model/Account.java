@@ -18,7 +18,7 @@ public class Account {
 	private String email;
 	private String password;
 	
-	private int lastMessageNum;
+	private int lastMessageNum = 1;
 	
 	/**
 	 * 

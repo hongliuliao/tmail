@@ -28,7 +28,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		Cookie cookie = WebUtils.getCookie(request, TMailConstants.LOGIN_ACCOUNT_COOKIE);
-		if(cookie == null || StringUtils.isEmpty(cookie.getValue())) {
+		if(cookie == null || StringUtils.isEmpty(cookie.getValue()) || "{}".equals(cookie.getValue())) {
 			String errorJson = JacksonUtils.toJson(VCodeMsg.failOf("not login!"));
 			response.addHeader("Content-Type", "application/json; charset=UTF-8");
 			response.getWriter().write(errorJson);
