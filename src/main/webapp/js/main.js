@@ -1,4 +1,4 @@
-jQuery(function ($) {
+$(function () {
 	showAccountInfo()
 	
 	$('#addAccountBtn').click(function(){
@@ -11,6 +11,7 @@ jQuery(function ($) {
 		var storeData = {'email':emailTextField,'password':password};
 		$.JSONCookie('ACCOUNT_INFO', storeData, {'path': '/'});
 		$('#accountInfo').html('当前用户:' + emailTextField)
+		addOtherAccount(storeData)
 	});
 	
 	$('#sendCommandBtn').click(function(){

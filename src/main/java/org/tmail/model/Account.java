@@ -5,6 +5,7 @@ package org.tmail.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.tmail.constants.MailHost;
 import org.tmail.utils.JacksonUtils;
 
 /**
@@ -77,29 +78,19 @@ public class Account {
 	}
 
 	public String getPop3Host() {
-		if(this.email.endsWith("@163.com")) {
-			return "pop3.163.com";
+		MailHost mailHost = MailHost.getMailHostFromMail(this.email);
+		if(mailHost == null) {
+			throw new IllegalArgumentException("Unsupport email:" + this.email);
 		}
-		if(this.email.endsWith("@qq.com")) {
-			return "pop.qq.com";
-		}
-		if(this.email.endsWith("@sohu-inc.com")) {
-			return "mail.sohu-inc.com";
-		}
-		throw new IllegalArgumentException("Unsupport email:" + this.email);
+		return mailHost.getPop3Host();
 	}
 	
 	public String getSmtpHost() {
-		if(this.email.endsWith("@163.com")) {
-			return "smtp.163.com";
+		MailHost mailHost = MailHost.getMailHostFromMail(this.email);
+		if(mailHost == null) {
+			throw new IllegalArgumentException("Unsupport email:" + this.email);
 		}
-		if(this.email.endsWith("@qq.com")) {
-			return "smtp.qq.com";
-		}
-		if(this.email.endsWith("@sohu-inc.com")) {
-			return "mail.sohu-inc.com";
-		}
-		throw new IllegalArgumentException("Unsupport email:" + this.email);
+		return mailHost.getSmtpHost();
 	}
 	
 	public static Account parseFromJson(String accountInfo) {

@@ -11,19 +11,23 @@
 <script type="text/javascript" src="js/common/jquery.jsoncookie.js"></script>
 
 <script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/account.js"></script>
 </head>
 <body>
 	<form id='loginForm'>
 		email:<input id='accountEmail' type='text' name="email" value="" />
 		password:<input id='accountPassword' name="password" type='password' />
-		<input id='addAccountBtn' type='button' value="添加" >
+		<input id='addAccountBtn' type='button' value="确定" >
+		<select id='accountHistorySel'></select>
 	</form>
 	<div id='accountInfo'></div>
 	
+	Command:<input id='command' type='text' value="list" />
+	<input id='sendCommandBtn' type='button' value='确定' />
+	<div id='processArea'></div>
+	
 	<br />
 	<div id="responseArea" style="width=40;rows=20"></div><br />
-	Command:<input id='command' type='text' value="list" />
-	<input id='sendCommandBtn' type='button' value='确定' /><div id='processArea'></div>
 	<hr />
 	收件人:<input id='toText' type='text' /><br />
 	主题:<input id='subjectText' type='text' /><br />

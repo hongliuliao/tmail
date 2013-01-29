@@ -12,7 +12,7 @@
  */
 (function ($) {
 	var isObject = function (x) {
-		return (typeof x === 'object') && !(x instanceof Array) && (x !== null);
+		return (typeof x === 'object') && (x !== null);
 	};
 	
 	$.extend({
