@@ -34,26 +34,26 @@ public class MailDaoTest extends BaseTest {
 	 */
 	@Test
 	public void testGetRecentMailIntroductions() {
-		Account account = Account.parseFromJson("{'email':'testliao4@163.com','password':'123456a'}");
+		Account account = Account.parseFromJson("{'email':'testliao3@163.com','password':'123456a'}");
 		System.out.println(mailDao.getMailIntroductions(account, 0, 10));
 	}
 
 	@Test
 	public void testCountNewMail() {
-		Account account = Account.parseFromJson("{'email':'testliao4@163.com','password':'123456a'}");
+		Account account = Account.parseFromJson("{'email':'testliao3@163.com','password':'123456a'}");
 		System.out.println(this.mailDao.countNewMail(account, 4));
 	}
 	
 	@Test
 	public void testGetTMail() {
-		Account account = Account.parseFromJson("{'email':'testliao4@163.com','password':'123456a'}");
+		Account account = Account.parseFromJson("{'email':'testliao3@163.com','password':'123456a'}");
 		TMail mail = this.mailDao.getTMail(account, 1);
 		System.out.println(mail);
 	}
 	
 	@Ignore
 	public void testSendMail() {
-		Account account = Account.parseFromJson("{'email':'testliao4@163.com','password':'123456a'}");
+		Account account = Account.parseFromJson("{'email':'testliao3@163.com','password':'123456a'}");
 		this.mailDao.sendMail(account, "357857613@qq.com", "test", "test2");
 	}
 	
