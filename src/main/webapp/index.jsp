@@ -14,6 +14,7 @@
 <script type="text/javascript" src="js/account.js"></script>
 </head>
 <body>
+	<a href='pages/desc.jsp'>应用简介</a>
 	<form id='loginForm'>
 		email:<input id='accountEmail' type='text' name="email" value="" />
 		password:<input id='accountPassword' name="password" type='password' />
