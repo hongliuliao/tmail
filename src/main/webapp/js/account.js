@@ -74,15 +74,14 @@ function fetchNewMailCount() {
 		setTimeout("fetchNewMailCount()", 3000)
 		return
 	}
-	$.get('mail/new', function(data){
+	$.ajax({'url':'mail/new'}).done(function(data){
 		var newCount = data.data.newMailCount
 		if(newCount != 0){
 			document.title = '您有新邮件!'
 			taskRun = true
 			recordLastMessageNumber(data.data.lastMessageNum)
 		}
-		setTimeout("fetchNewMailCount()", 3000)
-	})
+	}).always(function() { setTimeout("fetchNewMailCount()", 3000); });
 }
 
 function recordLastMessageNumber(lastMessageNum){
