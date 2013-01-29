@@ -153,7 +153,7 @@ public class MailDao {
 					fetchCount = 10;
 					log.warn("Too big fetchCount:" + fetchCount);
 				}
-				for(int i=lastMessageNumber;i<lastMessageNumber + fetchCount;i++) {
+				for(int i=lastMessageNumber;i<=lastMessageNumber + fetchCount;i++) {
 					Message message = folder.getMessage(i);
 					MailIntroduction mailIntroduction = new MailIntroduction();
 					if(message.getFrom().length != 0) {
