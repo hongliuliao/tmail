@@ -61,6 +61,10 @@ $(function () {
 		}
 	})
 	
+	$('#listBtn').bind('click', function(){
+		$('#command').val('list')
+		$('#sendCommandBtn').click();
+	})
 	
 });
 
@@ -117,6 +121,7 @@ function getAttachmentInfo(tmail) {
 
 function getMailIntroductionsList(){
 	$.get('mail/list',function(data){
+		$('#processArea').html('')
 		if(data.code != 0){
 			alert(data.msg)
 			return;
@@ -137,7 +142,6 @@ function bindingMail() {
 		li.children('a').bind('click', function(){
 			$('#command').val('view ' + li.attr("mail-id"))
 			$('#sendCommandBtn').click()
-			$('#command').val('list')
 		})
 	})
 }

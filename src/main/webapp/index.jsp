@@ -23,6 +23,7 @@
 	<div id='accountInfo'></div>
 	
 	Command:<input id='command' type='text' value="list" />
+	<input id='listBtn' type='button' value='list' />
 	<input id='sendCommandBtn' type='button' value='确定' />
 	<div id='processArea'></div>
 	
