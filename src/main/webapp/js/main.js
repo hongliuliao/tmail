@@ -59,6 +59,8 @@ jQuery(function ($) {
 			$('#sendCommandBtn').click();
 		}
 	})
+	
+	
 });
 
 function showAccountInfo() {
@@ -114,10 +116,24 @@ function getAttachmentInfo(tmail) {
 
 function getMailIntroductionsList(){
 	$.get('mail/list',function(data){
-		var html = '';
+		var html = '<ul id="mailList">';
 		for(var i in data.data) {
-			html = html + '[' + data.data[i].messageNumber + ']' + data.data[i].subject + '<br />'
+			html = html + '<li mail-id='+data.data[i].messageNumber+'>[' + data.data[i].messageNumber + ']<a href="javascript:void(0);">' + data.data[i].subject + '</a></li>'
 		}
+		html = html + '</ul>'
 		showResponse(html)
+		bindingMail()
 	});
 };
+
+function bindingMail() {
+	$('#mailList > li').each(function(){
+		var li = $(this)
+		li.children('a').bind('click', function(){
+			$('#command').val('view ' + li.attr("mail-id"))
+			$('#sendCommandBtn').click()
+			$('#command').val('list')
+		})
+	})
+}
+
