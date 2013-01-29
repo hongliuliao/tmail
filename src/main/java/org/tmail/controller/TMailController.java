@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +39,8 @@ public class TMailController {
 	@Resource
 	private MailServiceImpl MailServiceImpl;
 	
+	private static Log log = LogFactory.getLog(TMailController.class);
+	
 	@ResponseBody
 	@RequestMapping(value = "/mail/{msgnum:\\d+}", method = RequestMethod.GET)
 	public VCodeMsg getTMail(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo,
@@ -55,9 +59,14 @@ public class TMailController {
 	@ResponseBody
 	@RequestMapping(value = "/mail/list")
 	public VCodeMsg getMailIntroductions(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo) {
-		Account account = Account.parseFromJson(accountInfo);
-		List<MailIntroduction> introductions = this.MailServiceImpl.getMailIntroductions(account, 0, 10);
-		return VCodeMsg.SUCCESS.setData(introductions);
+		try {
+			Account account = Account.parseFromJson(accountInfo);
+			List<MailIntroduction> introductions = this.MailServiceImpl.getMailIntroductions(account, 0, 10);
+			return VCodeMsg.SUCCESS.setData(introductions);
+		} catch (Exception e) {
+			log.error("get mail list error!", e);
+			return VCodeMsg.failOf("get mail list error");
+		}
 	}
 	
 	@RequestMapping(value = "/mail/{msgnum}/attachment")

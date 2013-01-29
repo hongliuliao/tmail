@@ -117,6 +117,10 @@ function getAttachmentInfo(tmail) {
 
 function getMailIntroductionsList(){
 	$.get('mail/list',function(data){
+		if(data.code != 0){
+			alert(data.msg)
+			return;
+		}
 		var html = '<ul id="mailList">';
 		for(var i in data.data) {
 			html = html + '<li mail-id='+data.data[i].messageNumber+'>[' + data.data[i].messageNumber + ']<a href="javascript:void(0);">' + data.data[i].subject + '</a></li>'
