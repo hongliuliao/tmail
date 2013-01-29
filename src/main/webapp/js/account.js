@@ -32,7 +32,7 @@ function showOtherAccounts() {
 		return
 	}
 	for(var i=0;i<otherAccounts.length;i++){
-		var accountInfo = JSON.stringify(otherAccounts[i])
+		var accountInfo = JSON.stringify(otherAccounts[otherAccounts.length - 1 - i])
 		$("#accountHistorySel").append("<option value='"+accountInfo+"'>"+otherAccounts[i].email+"</option>")
 	}
 }
