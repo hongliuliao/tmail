@@ -53,9 +53,15 @@ public class MailDao {
 				if(total == 0) {
 					return mailIntroductions;
 				}
+				if(start + 1 > total) {
+					return mailIntroductions;
+				}
 				int fetchCount = count;
 				if(count > total) {
 					fetchCount = total;
+				}
+				if(start + fetchCount > total) {
+					fetchCount = total - start;
 				}
 				for(int i=start;i<start + fetchCount;i++) {
 					Message message = folder.getMessage(total - i);

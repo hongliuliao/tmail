@@ -43,6 +43,8 @@ public class TMailController {
 	
 	private static Log log = LogFactory.getLog(TMailController.class);
 	
+	public static final int PAGE_SIZE = 10;
+	
 	@ResponseBody
 	@RequestMapping(value = "/mail/{msgnum:\\d+}", method = RequestMethod.GET)
 	public VCodeMsg getTMail(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo,
@@ -60,10 +62,11 @@ public class TMailController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/mail/list")
-	public VCodeMsg getMailIntroductions(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo) {
+	public VCodeMsg getMailIntroductions(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo, @RequestParam(value = "page", required = false) int page) {
 		try {
 			Account account = Account.parseFromJson(accountInfo);
-			List<MailIntroduction> introductions = this.MailServiceImpl.getMailIntroductions(account, 0, 10);
+			int start = (page - 1) * PAGE_SIZE;
+			List<MailIntroduction> introductions = this.MailServiceImpl.getMailIntroductions(account, start, PAGE_SIZE);
 			return VCodeMsg.SUCCESS.setData(introductions);
 		} catch (Exception e) {
 			log.error("get mail list error!", e);

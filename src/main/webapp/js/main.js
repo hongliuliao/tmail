@@ -28,6 +28,10 @@ $(function () {
 		if(cmd == 'list'){
 			getMailIntroductionsList();
 		}
+		if(cmd.match(/^list [0-9]+$/)) {
+			var page = cmd.match(/[0-9]+$/)
+			getMailIntroductionsList(page)
+		}
 		if(cmd.match(/^view [0-9]+$/)) {
 			var msgnum = cmd.match(/[0-9]+$/)
 			getMail(msgnum)
@@ -119,8 +123,11 @@ function getAttachmentInfo(tmail) {
 	return html
 }
 
-function getMailIntroductionsList(){
-	$.get('mail/list',function(data){
+function getMailIntroductionsList(page){
+	if(page == undefined){
+		page = 1
+	}
+	$.get('mail/list?page=' + page,function(data){
 		$('#processArea').html('')
 		if(data.code != 0){
 			alert(data.msg)
