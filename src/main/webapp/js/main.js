@@ -51,7 +51,7 @@ $(function () {
 			return
 		}
 		$.post("mail/", { 'subject': subjectText, 'context': context, 'tomail': toMail } ,function(data){
-			if(data.code == 1){
+			if(data.code == 0){
 				alert('success')
 			}else{
 				alert(data.msg)
@@ -68,6 +68,20 @@ $(function () {
 	$('#listBtn').bind('click', function(){
 		$('#command').val('list')
 		$('#sendCommandBtn').click();
+	})
+	
+	$('#removeBtn').bind('click', function(){
+		var msgnums = new Array()
+		$('#mailListForm input[type="checkbox"]:checked').each(function(){
+			msgnums.push($(this).val())
+		})
+		$.post("mail/remove", jQuery.param({ 'msgnums': msgnums }, true), function(data){
+			if(data.code == 0){
+				$('#listBtn').click()
+			}else{
+				alert(data.msg)
+			}
+		})
 	})
 	
 });
@@ -133,11 +147,17 @@ function getMailIntroductionsList(page){
 			alert(data.msg)
 			return;
 		}
-		var html = '<ul id="mailList">';
+		var html = '<form id="mailListForm">'
+		html = html + '<ul id="mailList">';
 		for(var i in data.data) {
-			html = html + '<li mail-id='+data.data[i].messageNumber+'>[' + data.data[i].messageNumber + ']<a href="javascript:void(0);">' + data.data[i].subject + '</a></li>'
+			html = html + '<li mail-id='+data.data[i].messageNumber+'>'
+			html = html + '<input name="mailCheckBox" type="checkbox" value=' + data.data[i].messageNumber +'>'
+			html = html + '[' + data.data[i].messageNumber + ']<a href="javascript:void(0);">' + data.data[i].subject + '</a>'
+			html = html + ' ' + new Date(data.data[i].sentDate).toLocaleString()
+			html = html + '</li>'
 		}
 		html = html + '</ul>'
+		html = html + '</form>'
 		showResponse(html)
 		bindingMail()
 		document.title = 'Hello World!'

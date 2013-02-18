@@ -60,4 +60,8 @@ public class MailServiceImpl {
 		return this.mailDao.getNewMail(account, account.getLastMessageNum()).size();
 	}
 	
+	public void removeMails(Account account, int[] msgnums) {
+		this.mailDao.removeMails(account, msgnums);
+	}
+	
 }

@@ -112,4 +112,13 @@ public class TMailController {
 		return VCodeMsg.SUCCESS.setData(params);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/mail/remove", method = RequestMethod.POST)
+	public VCodeMsg removeMail(@CookieValue(TMailConstants.LOGIN_ACCOUNT_COOKIE) String accountInfo,
+			@RequestParam("msgnums") int[] msgnums) {
+		Account account = Account.parseFromJson(accountInfo);
+		this.MailServiceImpl.removeMails(account, msgnums);
+		return VCodeMsg.SUCCESS;
+	}
+	
 }

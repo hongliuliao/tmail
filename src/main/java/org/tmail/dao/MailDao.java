@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.mail.BodyPart;
+import javax.mail.Flags.Flag;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -71,6 +72,23 @@ public class MailDao {
 			}
 		});
 		
+	}
+	
+	public void removeMails(Account account, final int[] msgnums) {
+		MailTemplate mailTemplate = new MailTemplate(account);
+		mailTemplate.receive(new IReceiveHandler() {
+
+			@Override
+			public Object handler(Folder folder) throws Exception {
+				for (int msgnum : msgnums) {
+					Message message = folder.getMessage(msgnum);
+					if(message != null) {
+						message.setFlag(Flag.DELETED, true);
+					}
+				}
+				return null;
+			}
+		});
 	}
 	
 	public TMail getTMail(Account account, final int msgnum) {
