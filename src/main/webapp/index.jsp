@@ -12,6 +12,9 @@
 
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/account.js"></script>
+<script type="text/javascript" src="js/talk.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/talk.css" />
 </head>
 <body>
 	<a href='pages/desc.jsp'>应用简介</a>
@@ -21,7 +24,7 @@
 		<input id='addAccountBtn' type='button' value="确定" >
 		<select id='accountHistorySel'></select>
 	</form>
-	<div id='accountInfo'></div>
+	<div id='accountInfo' class="talkdialog"></div>
 	
 	Command:<input id='command' type='text' value="list" />
 	<input id='sendCommandBtn' type='button' value='确定' />

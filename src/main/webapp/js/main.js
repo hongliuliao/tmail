@@ -150,16 +150,18 @@ function getMailIntroductionsList(page){
 		var html = '<form id="mailListForm">'
 		html = html + '<ul id="mailList">';
 		for(var i in data.data) {
-			html = html + '<li mail-id='+data.data[i].messageNumber+'>'
+			html = html + '<li mail-id='+data.data[i].messageNumber + ' sender="' + data.data[i].from +'">'
 			html = html + '<input name="mailCheckBox" type="checkbox" value=' + data.data[i].messageNumber +'>'
-			html = html + '[' + data.data[i].messageNumber + ']<a href="javascript:void(0);">' + data.data[i].subject + '</a>'
+			html = html + '[' + data.data[i].messageNumber + ']<a name="mailTitle" href="javascript:void(0);">' + data.data[i].subject + '</a>'
 			html = html + ' ' + new Date(data.data[i].sentDate).toLocaleString()
+			html = html + ' <a name="talkLink" href="javascript:void(0);">与TA聊聊</a>'
 			html = html + '</li>'
 		}
 		html = html + '</ul>'
 		html = html + '</form>'
 		showResponse(html)
 		bindingMail()
+		bindingTalk()
 		document.title = 'Hello World!'
 		stopScrollTask()
 	});
@@ -168,9 +170,19 @@ function getMailIntroductionsList(page){
 function bindingMail() {
 	$('#mailList > li').each(function(){
 		var li = $(this)
-		li.children('a').bind('click', function(){
+		li.children('a[name="mailTitle"]').bind('click', function(){
 			$('#command').val('view ' + li.attr("mail-id"))
 			$('#sendCommandBtn').click()
+		})
+	})
+}
+
+function bindingTalk() {
+	$('#mailList > li').each(function(){
+		var li = $(this)
+		li.children('a[name="talkLink"]').bind('click', function(){
+			var sender = li.attr("sender")
+			showTalkDialog(sender)
 		})
 	})
 }
