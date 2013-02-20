@@ -32,7 +32,6 @@ define('task',['jquery', 'jsoncookie','util'],function($, jsoncookie, Util){
 			if(newCount != 0){
 				document.title = '您有新邮件!'
 				taskRun = true
-				recordLastMessageNumber(data.data.lastMessageNum)
 			}
 		}).always(function() { setTimeout(fetchNewMailCount, 3000); });
 	}

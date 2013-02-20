@@ -12,7 +12,7 @@ define('mail',['jquery','jsoncookie', 'util', 'task', 'talk', 'account'], functi
 			var storeData = {'email':emailTextField,'password':password};
 			$.JSONCookie('ACCOUNT_INFO', storeData, {'path': '/'});
 			$('#accountInfo').html('当前用户:' + emailTextField)
-			addOtherAccount(storeData)
+			account.addOtherAccount(storeData)
 		});
 		
 		$('#sendCommandBtn').click(function(){
