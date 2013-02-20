@@ -10,7 +10,7 @@
  * @author Randall Morey
  * @version 0.9
  */
-(function ($) {
+define('jquery.jsoncookie',['jquery','jquery.cookie','json'], function($, jquerycookie) {
 	var isObject = function (x) {
 		return (typeof x === 'object') && (x !== null);
 	};
@@ -46,4 +46,4 @@
 			return $.getJSONCookie(cookieName);
 		}
 	});
-})(jQuery);
+})
