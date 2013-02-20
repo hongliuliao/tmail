@@ -5,15 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hello world!</title>
-<script type="text/javascript" src="js/common/jquery-1.9.0.min.js"></script>
-<script type="text/javascript" src="js/common/json2.js"></script>
-<script type="text/javascript" src="js/common/jquery.cookie.js"></script>
-<script type="text/javascript" src="js/common/jquery.jsoncookie.js"></script>
-<script type="text/javascript" src="js/common/mustache.js"></script>
+<script type="text/javascript" data-main="js/main.js" src="js/common/require.js"></script>
 
-<script type="text/javascript" src="js/mail.js"></script>
-<script type="text/javascript" src="js/account.js"></script>
-<script type="text/javascript" src="js/talk.js"></script>
 <script type="text/html" id="talkdialogTemplate">
 	<div id="appWindow_3" class="window window_current"
 		style="width: 445px; height: 450px; left: 441px; top: 153px; display: block; visibility: visible; z-index: 21;">
@@ -269,10 +262,10 @@
 	</div>
 </script>
 
-<link rel="stylesheet" type="text/css" href="http://0.web.qstatic.com/webqqpic/pubapps/0/50/style.css?20121029001" />
-<link rel="stylesheet" type="text/css" href="http://0.web.qstatic.com/webqqpic/style/qqweb.main.2.css?t=20121029001" />
-<link rel="stylesheet" type="text/css" href="http://0.web.qstatic.com/webqqpic/style/jet.all.css?t=20120607001" />
-<link rel="stylesheet" type="text/css" href="http://0.web.qstatic.com/webqqpic/style/qqweb.main.css?t=20121210001" />
+<link rel="stylesheet" type="text/css" href="css/qq/style.css" />
+<link rel="stylesheet" type="text/css" href="css/qq/qqweb.main.2.css" />
+<link rel="stylesheet" type="text/css" href="css/qq/jet.all.css" />
+<link rel="stylesheet" type="text/css" href="css/qq/qqweb.main.css" />
 
 <link rel="stylesheet" type="text/css" href="css/talk.css" />
 </head>
