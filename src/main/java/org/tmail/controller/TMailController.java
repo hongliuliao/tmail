@@ -5,7 +5,6 @@ package org.tmail.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -26,6 +25,8 @@ import org.tmail.constants.TMailConstants;
 import org.tmail.model.Account;
 import org.tmail.model.Attachment;
 import org.tmail.model.MailIntroduction;
+import org.tmail.model.MailListCodeMsg;
+import org.tmail.model.Pagination;
 import org.tmail.model.TMail;
 import org.tmail.model.VCodeMsg;
 import org.tmail.service.MailServiceImpl;
@@ -66,8 +67,14 @@ public class TMailController {
 		try {
 			Account account = Account.parseFromJson(accountInfo);
 			int start = (page - 1) * PAGE_SIZE;
-			List<MailIntroduction> introductions = this.MailServiceImpl.getMailIntroductions(account, start, PAGE_SIZE);
-			return VCodeMsg.SUCCESS.setData(introductions);
+			Pagination<MailIntroduction> pagination = this.MailServiceImpl.getMailIntroductions(account, start, PAGE_SIZE);
+			MailListCodeMsg codeMsg = new MailListCodeMsg();
+			codeMsg.setCode(VCodeMsg.SUCCESS_CODE);
+			codeMsg.setData(pagination.getResultList());
+			codeMsg.setStart(pagination.getStart());
+			codeMsg.setCount(pagination.getCount());
+			codeMsg.setTotalCount(pagination.getTotalCount());
+			return codeMsg;
 		} catch (Exception e) {
 			log.error("get mail list error!", e);
 			return VCodeMsg.failOf("get mail list error");

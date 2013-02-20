@@ -1,4 +1,4 @@
-define('mail',['jquery','jsoncookie', 'util', 'task', 'talk'], function($, JSONCOOKIE, Util, task, talk){
+define('mail',['jquery','jsoncookie', 'util', 'task', 'talk', 'account'], function($, JSONCOOKIE, Util, task, talk, account){
 	$(function () {
 		showAccountInfo()
 		
@@ -158,6 +158,7 @@ define('mail',['jquery','jsoncookie', 'util', 'task', 'talk'], function($, JSONC
 			bindingTalk()
 			document.title = 'Hello World!'
 			task.stopScrollTask()
+			account.recordLastMessageNumber(data.totalCount)
 		});
 	};
 

@@ -44,13 +44,20 @@ define('account', ['jquery', 'jsoncookie', 'mail', 'util'], function($, JSONCook
 		}
 	}
 
-
 	function recordLastMessageNumber(lastMessageNum){
 		var accountInfo = $.JSONCookie('ACCOUNT_INFO')
 		accountInfo.lastMessageNum = lastMessageNum
 		$.JSONCookie('ACCOUNT_INFO', accountInfo)
 	}
 	
+	function getLastMessageNumber(){
+		var accountInfo = $.JSONCookie('ACCOUNT_INFO')
+		return accountInfo.lastMessageNum
+	}
+	return {
+		recordLastMessageNumber:recordLastMessageNumber,
+		getLastMessageNumber:getLastMessageNumber
+	}
 })
 
 

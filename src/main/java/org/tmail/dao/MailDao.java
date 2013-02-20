@@ -28,6 +28,7 @@ import org.springframework.stereotype.Repository;
 import org.tmail.model.Account;
 import org.tmail.model.Attachment;
 import org.tmail.model.MailIntroduction;
+import org.tmail.model.Pagination;
 import org.tmail.model.TMail;
 import org.tmail.utils.IReceiveHandler;
 import org.tmail.utils.MailTemplate;
@@ -43,19 +44,19 @@ public class MailDao {
 
 	private static final Log log = LogFactory.getLog(MailDao.class);
 	
-	public List<MailIntroduction> getMailIntroductions(Account account, final int start, final int count){
+	public Pagination<MailIntroduction> getMailIntroductions(Account account, final int start, final int count){
 		MailTemplate mailTemplate = new MailTemplate(account);
 		return mailTemplate.receive(new IReceiveHandler() {
 			
 			@Override
-			public List<MailIntroduction> handler(Folder folder) throws Exception {
+			public Pagination<MailIntroduction> handler(Folder folder) throws Exception {
 				List<MailIntroduction> mailIntroductions = new ArrayList<MailIntroduction>();
 				int total = folder.getMessageCount();
-				if(total == 0) {
-					return mailIntroductions;
-				}
-				if(start + 1 > total) {
-					return mailIntroductions;
+				Pagination<MailIntroduction> pagination = new Pagination<MailIntroduction>(start, count);
+				pagination.setTotalCount(total);
+				pagination.setResultList(mailIntroductions);
+				if(total == 0 || start + 1 > total) {
+					return pagination;
 				}
 				int fetchCount = count;
 				if(count > total) {
@@ -68,7 +69,7 @@ public class MailDao {
 					Message message = folder.getMessage(total - i);
 					mailIntroductions.add(MailIntroduction.fromMessage(message));
 				}
-				return mailIntroductions;
+				return pagination;
 			}
 		});
 		

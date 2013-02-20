@@ -16,7 +16,7 @@ public class VCodeMsg {
     
     private Object data;
     
-    private static final int SUCCESS_CODE = 0;
+    public static final int SUCCESS_CODE = 0;
     
     private static final int FAIL_CODE = 1;
     

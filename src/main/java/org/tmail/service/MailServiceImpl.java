@@ -3,9 +3,6 @@
  */
 package org.tmail.service;
 
-import java.util.Collections;
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -14,6 +11,7 @@ import org.tmail.dao.MailDao;
 import org.tmail.model.Account;
 import org.tmail.model.Attachment;
 import org.tmail.model.MailIntroduction;
+import org.tmail.model.Pagination;
 import org.tmail.model.TMail;
 
 /**
@@ -32,9 +30,9 @@ public class MailServiceImpl {
 		return mailDao.getTMail(account, msgnum);
 	}
 	
-	public List<MailIntroduction> getMailIntroductions(Account account, int start, int count) {
+	public Pagination<MailIntroduction> getMailIntroductions(Account account, int start, int count) {
 		if(account == null) {
-			return Collections.emptyList();
+			return null;
 		}
 		return this.mailDao.getMailIntroductions(account, start, count);
 	}
