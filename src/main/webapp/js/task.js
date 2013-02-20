@@ -1,4 +1,4 @@
-define('task',['jquery','util'],function($, Util){
+define('task',['jquery', 'jsoncookie','util'],function($, jsoncookie, Util){
 	$(function(){
 		fetchNewMailCount()
 		scrollTask()
