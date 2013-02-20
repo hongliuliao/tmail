@@ -56,8 +56,8 @@ define('account', ['jquery', 'jsoncookie', 'mail', 'util'], function($, JSONCook
 	}
 	return {
 		recordLastMessageNumber:recordLastMessageNumber,
-		getLastMessageNumber:getLastMessageNumber
-		addOtherAccount:addOtherAccount
+		getLastMessageNumber:getLastMessageNumber,
+		addOtherAccount:addOtherAccount,
 		showOtherAccounts:showOtherAccounts
 	}
 })
