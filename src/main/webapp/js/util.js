@@ -9,12 +9,7 @@ define('util',['jquery'], function($){
 				}
 			}
 			return true
-		},scrollTitle: function(){
-			var title = document.title;
-			var firstch = title.charAt(0);
-			var leftstr = title.substring(1, title.length);
-			document.title = leftstr + firstch;
-		}
+		}}
 	}
 	return new Util()
 })

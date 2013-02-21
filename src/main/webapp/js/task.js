@@ -16,10 +16,17 @@ define('task',['jquery', 'jsoncookie','util'],function($, jsoncookie, Util){
 		taskRun = true
 	}
 
-	function scrollTask(){
+	function scrollTitle(){
 		if(taskRun) {
-			setInterval(Util.scrollTitle(), 500);
+			var title = document.title;
+			var firstch = title.charAt(0);
+			var leftstr = title.substring(1, title.length);
+			document.title = leftstr + firstch;
 		}
+	}
+	
+	function scrollTask(){
+		setInterval(scrollTitle, 500);
 	}
 	
 	function fetchNewMailCount() {
