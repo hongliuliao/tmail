@@ -34,7 +34,7 @@ public class MailDaoTest extends BaseTest {
 	 */
 	@Test
 	public void testGetRecentMailIntroductions() {
-		Account account = Account.parseFromJson("{'email':'testliao3@163.com','password':'123456a'}");
+		Account account = Account.parseFromJson("{'email':'lyyseek@gmail.com','password':'a7837052'}");
 		System.out.println(mailDao.getMailIntroductions(account, 0, 10));
 	}
 
