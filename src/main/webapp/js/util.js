@@ -9,7 +9,7 @@ define('util',['jquery'], function($){
 				}
 			}
 			return true
-		}}
+		}
 	}
 	return new Util()
 })
