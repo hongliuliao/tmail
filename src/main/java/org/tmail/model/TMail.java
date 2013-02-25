@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -30,6 +31,9 @@ public class TMail {
 	 * @return the context
 	 */
 	public String getContext() {
+		if(StringUtils.isBlank(this.context)) {
+			return this.getHtmlContext();
+		}
 		return context;
 	}
 
