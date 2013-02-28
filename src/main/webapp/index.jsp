@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hello world!</title>
-<script type="text/javascript" data-main="js/main.js" src="js/common/require.js"></script>
+<script type="text/javascript" data-main="js/main.js" src="js/lib/require.js"></script>
 
 <script type="text/html" id="talkdialogTemplate">
 	<div class="talkdialog">这是聊天对话框(待建设...)</div>

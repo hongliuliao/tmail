@@ -1,7 +1,10 @@
-requirejs.config({
-	baseUrl: 'js',
-	paths: {
-		'jquery':'lib/jquery-1.9.0.min',
+({
+    appDir: "js",
+    baseUrl: "./",
+    dir: "js-build",
+
+    paths: {
+    	'jquery':'lib/jquery-1.9.0.min',
 		'mustache':'lib/mustache',
 		'jquery.cookie':'lib/jquery.cookie',
 		'json':'lib/json2',
@@ -11,9 +14,11 @@ requirejs.config({
 		'util':'modules/util',
 		'task':'modules/task',
 		'talk':'modules/talk'
-	}
+    },
+
+    modules: [
+        {
+            name: "main"
+        }
+    ]
 })
-
-define("jsoncookie", ['jquery', 'jquery.cookie', 'json', 'jquery.jsoncookie'])
-
-require(['mail', 'account', 'util', 'task', 'talk']);
