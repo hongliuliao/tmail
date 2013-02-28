@@ -13,6 +13,7 @@
 	<mvc:annotation-driven/> 
 	
 	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/js-build/" mapping="/js-build/**" />
 	<mvc:resources location="/css/" mapping="/css/**" />
 
     <mvc:interceptors>
