@@ -14,6 +14,4 @@ requirejs.config({
 	}
 })
 
-define("jsoncookie", ['jquery', 'jquery.cookie', 'json', 'jquery.jsoncookie'])
-
 require(['mail', 'account', 'util', 'task', 'talk']);
