@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.tmail.constants.Charsets;
 import org.tmail.constants.TMailConstants;
 import org.tmail.model.Account;
 import org.tmail.model.Attachment;
@@ -87,13 +87,13 @@ public class TMailController {
 			@RequestParam("filename") String filename,
 			HttpServletResponse response) throws IOException {
 		Account account = Account.parseFromJson(accountInfo);
-		filename = new String(filename.getBytes(Charsets.ISO8859), Charsets.UTF8);
+		filename = new String(filename.getBytes(Charsets.ISO_8859_1), Charsets.UTF_8);
 		Attachment attachment = this.MailServiceImpl.getAttachment(account, msgnum, filename);
 		if(attachment == null) {
 			throw new RuntimeException("file not found!");
 		}
 		response.setContentType(attachment.getContextType());
-		response.setHeader("Content-disposition", "attachment; filename=" + new String(attachment.getName().getBytes(Charsets.UTF8), Charsets.ISO8859));
+		response.setHeader("Content-disposition", "attachment; filename=" + new String(attachment.getName().getBytes(Charsets.UTF_8), Charsets.ISO_8859_1));
 		IOUtils.copy(attachment.getInputStream(), response.getOutputStream());
 	}
 	

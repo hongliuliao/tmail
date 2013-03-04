@@ -47,7 +47,7 @@ public class MailDaoTest extends BaseTest {
 	@Test
 	public void testGetTMail() {
 		Account account = Account.parseFromJson("{'email':'testliao3@163.com','password':'123456a'}");
-		TMail mail = this.mailDao.getTMail(account, 1);
+		TMail mail = this.mailDao.getTMail(account, 101);
 		System.out.println(mail);
 	}
 	

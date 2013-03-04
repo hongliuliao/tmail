@@ -25,11 +25,14 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Repository;
+import org.tmail.constants.TMailConstants;
 import org.tmail.model.Account;
 import org.tmail.model.Attachment;
+import org.tmail.model.EmbededImage;
 import org.tmail.model.MailIntroduction;
 import org.tmail.model.Pagination;
 import org.tmail.model.TMail;
+import org.tmail.utils.DownloadUtils;
 import org.tmail.utils.IReceiveHandler;
 import org.tmail.utils.MailTemplate;
 
@@ -142,6 +145,14 @@ public class MailDao {
                     }
                     mail.addAttachment(new Attachment(fileName, bodyPart.getInputStream(), bodyPart.getContentType()));
                 }
+            } else if(bodyPart.getContentType().startsWith("image/")) {
+            	//download image
+            	String contentDescription = bodyPart.getHeader("Content-Description")[0];
+            	String contentId = bodyPart.getHeader("Content-Id")[0];
+            	
+            	DownloadUtils.downloadFile(TMailConstants.EMBEDDED_IMAGE_STORE_DIR + mail.getMailIntroduction().getMessageNumber(), contentDescription, bodyPart.getInputStream());
+            	EmbededImage embededImage = new EmbededImage(contentDescription, contentId);
+            	mail.addEmbededImage(embededImage);
             }
         }  
     }  

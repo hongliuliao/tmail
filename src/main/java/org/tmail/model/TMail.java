@@ -8,9 +8,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.Charsets;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
+import sun.misc.BASE64Encoder;
 
 /**
  * @author hongliuliao
@@ -26,6 +29,8 @@ public class TMail {
 	private String htmlContext;
 	
 	private List<Attachment> attachments; 
+	
+	private List<EmbededImage> embededImages;
 
 	/**
 	 * @return the context
@@ -74,6 +79,13 @@ public class TMail {
 	 * @return the htmlContext
 	 */
 	public String getHtmlContext() {
+		if(CollectionUtils.isNotEmpty(this.embededImages) && htmlContext != null) {
+			for (EmbededImage image : embededImages) {
+				BASE64Encoder encoder = new BASE64Encoder();
+				String imageName = encoder.encode(image.getContentDescription().getBytes(Charsets.UTF_8));
+				htmlContext = htmlContext.replace("cid:" + image.getContentId(), "image/" + this.mailIntroduction.getMessageNumber() + "/" + imageName);
+			}
+		}
 		return htmlContext;
 	}
 
@@ -125,5 +137,28 @@ public class TMail {
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
 	}
+	
+	public void addEmbededImage(EmbededImage embededImage) {
+		if(this.embededImages == null) {
+			this.embededImages = new ArrayList<EmbededImage>();
+		}
+		this.embededImages.add(embededImage);
+	}
+
+	/**
+	 * @return the embededImages
+	 */
+	public List<EmbededImage> getEmbededImages() {
+		return embededImages;
+	}
+
+	/**
+	 * @param embededImages the embededImages to set
+	 */
+	public void setEmbededImages(List<EmbededImage> embededImages) {
+		this.embededImages = embededImages;
+	}
+	
+	
 	
 }
