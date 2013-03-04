@@ -16,6 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * 邮件简介,可用于列表时候的展示
  * @author hongliuliao
  *
  * createTime:2013-1-14 上午10:41:07
@@ -24,14 +25,29 @@ public class MailIntroduction {
 	
 	private static Log log = LogFactory.getLog(MailIntroduction.class);
 
+	/**
+	 * 邮件编号
+	 */
 	private int messageNumber;
 	
+	/**
+	 * 邮件发送者自己定义的名字
+	 */
 	private String personal;
 	
+	/**
+	 * 邮件来源
+	 */
 	private String from;
 	
+	/**
+	 * 邮件主题
+	 */
 	private String subject;
 	
+	/**
+	 * 发送时间
+	 */
 	private Date sentDate;
 
 	public static MailIntroduction fromMessage(Message message) throws MessagingException {

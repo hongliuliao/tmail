@@ -9,20 +9,27 @@ import org.tmail.constants.MailHost;
 import org.tmail.utils.JacksonUtils;
 
 /**
+ * 用户信息类
  * @author hongliuliao
  *
  * createTime:2013-1-14 下午2:03:33
  */
 public class Account {
 
+	/**
+	 * 邮箱账号
+	 */
 	private String email;
+	/**
+	 * 邮箱密码
+	 */
 	private String password;
 	
+	/**
+	 * 最后一次读取到的邮件编号
+	 */
 	private int lastMessageNum = 1;
 	
-	/**
-	 * 
-	 */
 	public Account() {
 	}
 	

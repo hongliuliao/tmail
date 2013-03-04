@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
+ * 邮件中的附件
  * @author hongliuliao
  *
  * createTime:2013-1-28 下午3:41:59
@@ -17,10 +18,19 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties({"inputStream"})
 public class Attachment {
 
+	/**
+	 * 附件名
+	 */
 	private String name;
 	
+	/**
+	 * 附件对应的字节流,来自于原始的邮件服务器
+	 */
 	private InputStream inputStream;
 
+	/**
+	 * 内容类型
+	 */
 	private String contextType;
 	
 	/**
