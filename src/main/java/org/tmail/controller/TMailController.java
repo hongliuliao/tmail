@@ -94,7 +94,7 @@ public class TMailController {
 		}
 		response.setContentType(attachment.getContextType());
 		response.setHeader("Content-disposition", "attachment; filename=" + new String(attachment.getName().getBytes(Charsets.UTF_8), Charsets.ISO_8859_1));
-		IOUtils.copyAndCloseOutputStream(attachment.getInputStream(), response.getOutputStream());
+		IOUtils.copyAndCloseStream(attachment.getInputStream(), response.getOutputStream());
 	}
 	
 	@ResponseBody

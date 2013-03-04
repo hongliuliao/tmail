@@ -26,7 +26,7 @@ public class DownloadUtils {
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(dir + "/" + name);
-			IOUtils.copyAndCloseOutputStream(is, fos);
+			IOUtils.copyAndCloseStream(is, fos);
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException("download file error!", e);
 		}

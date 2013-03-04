@@ -44,6 +44,6 @@ public class PhotoController {
 			log.warn("Image not found! which path:" + file.getPath());
 			return;
 		}
-		IOUtils.copyAndCloseOutputStream(new FileInputStream(file), response.getOutputStream());
+		IOUtils.copyAndCloseStream(new FileInputStream(file), response.getOutputStream());
 	}
 }

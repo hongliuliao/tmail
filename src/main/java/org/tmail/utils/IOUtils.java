@@ -14,13 +14,14 @@ import java.io.OutputStream;
  */
 public class IOUtils {
 
-	public static int copyAndCloseOutputStream(InputStream is, OutputStream os) {
+	public static int copyAndCloseStream(InputStream is, OutputStream os) {
 		try {
 			return org.apache.commons.io.IOUtils.copy(is, os);
 		} catch (IOException e) {
 			throw new RuntimeException("copy is error!", e);
 		} finally {
 			org.apache.commons.io.IOUtils.closeQuietly(os);
+			org.apache.commons.io.IOUtils.closeQuietly(is);
 		}
 	}
 }
