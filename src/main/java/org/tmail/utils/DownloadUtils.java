@@ -4,10 +4,9 @@
 package org.tmail.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
 
 /**
  * @author hongliuliao
@@ -24,10 +23,11 @@ public class DownloadUtils {
 		if(!downloadDir.isDirectory()) {
 			throw new RuntimeException("dir is not exist! dir:" + dir);
 		}
+		FileOutputStream fos;
 		try {
-			FileOutputStream fos = new FileOutputStream(dir + "/" + name);
-			IOUtils.copy(is, fos);
-		} catch (Exception e) {
+			fos = new FileOutputStream(dir + "/" + name);
+			IOUtils.copyAndCloseOutputStream(is, fos);
+		} catch (FileNotFoundException e) {
 			throw new RuntimeException("download file error!", e);
 		}
 	}

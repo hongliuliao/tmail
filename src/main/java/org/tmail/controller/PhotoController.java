@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.tmail.constants.TMailConstants;
+import org.tmail.utils.IOUtils;
 
 import sun.misc.BASE64Decoder;
 
@@ -44,6 +44,6 @@ public class PhotoController {
 			log.warn("Image not found! which path:" + file.getPath());
 			return;
 		}
-		IOUtils.copy(new FileInputStream(file), response.getOutputStream());
+		IOUtils.copyAndCloseOutputStream(new FileInputStream(file), response.getOutputStream());
 	}
 }

@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.Charsets;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -30,6 +29,7 @@ import org.tmail.model.Pagination;
 import org.tmail.model.TMail;
 import org.tmail.model.VCodeMsg;
 import org.tmail.service.MailServiceImpl;
+import org.tmail.utils.IOUtils;
 
 /**
  * @author hongliuliao
@@ -94,7 +94,7 @@ public class TMailController {
 		}
 		response.setContentType(attachment.getContextType());
 		response.setHeader("Content-disposition", "attachment; filename=" + new String(attachment.getName().getBytes(Charsets.UTF_8), Charsets.ISO_8859_1));
-		IOUtils.copy(attachment.getInputStream(), response.getOutputStream());
+		IOUtils.copyAndCloseOutputStream(attachment.getInputStream(), response.getOutputStream());
 	}
 	
 	@ResponseBody

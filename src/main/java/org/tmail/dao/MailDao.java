@@ -147,8 +147,9 @@ public class MailDao {
                 }
             } else if(bodyPart.getContentType().startsWith("image/")) {
             	//download image
-            	String contentDescription = bodyPart.getHeader("Content-Description")[0];
+            	String contentDescription = bodyPart.getDescription();
             	String contentId = bodyPart.getHeader("Content-Id")[0];
+            	
             	
             	DownloadUtils.downloadFile(TMailConstants.EMBEDDED_IMAGE_STORE_DIR + mail.getMailIntroduction().getMessageNumber(), contentDescription, bodyPart.getInputStream());
             	EmbededImage embededImage = new EmbededImage(contentDescription, contentId);
