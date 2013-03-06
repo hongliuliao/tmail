@@ -3,6 +3,8 @@
  */
 package org.tmail.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -55,7 +57,11 @@ public class MailServiceImpl {
 	}
 	
 	public int getNewMailCount(Account account) {
-		return this.mailDao.getNewMail(account, account.getLastMessageNum()).size();
+		List<MailIntroduction> newMails = this.mailDao.getNewMail(account, account.getLastMessageNum());
+		if(CollectionUtils.isEmpty(newMails)) {
+			return 0;
+		}
+		return newMails.size();
 	}
 	
 	public void removeMails(Account account, int[] msgnums) {
