@@ -107,6 +107,7 @@ public class MailDao {
 				}
 				TMail mail = new TMail();
 				mail.setMailIntroduction(MailIntroduction.fromMessage(message));
+				message.getReplyTo();
 				if(message.getContent() instanceof String) {
 					mail.setContext((String) message.getContent());
 				}
@@ -147,7 +148,7 @@ public class MailDao {
                 }
             } else if(bodyPart.getContentType().startsWith("image/")) {
             	//download image
-            	String contentDescription = bodyPart.getDescription();
+            	String contentDescription = bodyPart.getFileName();
             	String contentId = bodyPart.getHeader("Content-Id")[0];
             	
             	

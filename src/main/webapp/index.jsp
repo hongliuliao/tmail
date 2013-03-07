@@ -26,14 +26,14 @@
 	
 	Command:<input id='command' type='text' value="list" />
 	<input id='sendCommandBtn' type='button' value='确定' />
-	<input id='listBtn' type='button' value='list' />
+	<input id='listBtn' name='listbtn' type='button' value='list' />
 	<input id='removeBtn' type='button' value='remove' />
 	<div id='processArea'></div>
 	
 	<br />
 	<div id="responseArea" style="width=40;rows=20"></div><br />
 	<hr />
-	收件人:<input id='toText' type='text' /><br />
+	收件人:<input id='toText' type='text' /> <input id="listBtn2" name='listbtn' type='button' value='list' /><br />
 	主题:<input id='subjectText' type='text' /><br />
 	内容:<textarea id="contextTextArea" cols="40" rows="10"></textarea><br />
 	<input id='sendMailBtn' type='button' value="确定" />

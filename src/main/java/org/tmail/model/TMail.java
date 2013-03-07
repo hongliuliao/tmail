@@ -36,8 +36,9 @@ public class TMail {
 	 * @return the context
 	 */
 	public String getContext() {
-		if(StringUtils.isBlank(this.context)) {
-			return this.getHtmlContext();
+		String htmlContext = this.getHtmlContext();
+		if(StringUtils.isNotBlank(htmlContext)) {
+			return htmlContext;
 		}
 		return context;
 	}

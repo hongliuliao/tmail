@@ -66,9 +66,12 @@ define('mail',['jquery','jsoncookie', 'util', 'task', 'talk', 'account'], functi
 			}
 		})
 		
-		$('#listBtn').bind('click', function(){
-			$('#command').val('list')
-			$('#sendCommandBtn').click();
+		$('input[name="listbtn"]').each(function(index){
+			
+			$(this).bind('click', function(){
+				$('#command').val('list')
+				$('#sendCommandBtn').click();
+			})
 		})
 		
 		$('#removeBtn').bind('click', function(){
