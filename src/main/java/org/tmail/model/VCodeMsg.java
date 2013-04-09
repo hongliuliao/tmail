@@ -18,7 +18,7 @@ public class VCodeMsg {
     
     public static final int SUCCESS_CODE = 0;
     
-    private static final int FAIL_CODE = 1;
+    public static final int FAIL_CODE = 1;
     
     public static final VCodeMsg SUCCESS = new VCodeMsg(SUCCESS_CODE, "success");
 

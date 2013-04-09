@@ -69,6 +69,11 @@ public class TMailController {
 			int start = (page - 1) * PAGE_SIZE;
 			Pagination<MailIntroduction> pagination = this.MailServiceImpl.getMailIntroductions(account, start, PAGE_SIZE);
 			MailListCodeMsg codeMsg = new MailListCodeMsg();
+			if(pagination == null) {
+				codeMsg.setCode(VCodeMsg.FAIL_CODE);
+				codeMsg.setMsg("Can not found mail info!");
+				return codeMsg;
+			}
 			codeMsg.setCode(VCodeMsg.SUCCESS_CODE);
 			codeMsg.setData(pagination.getResultList());
 			codeMsg.setStart(pagination.getStart());
