@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
+import sun.misc.BASE64Encoder;
 
 /**
  * @author hongliuliao
@@ -81,7 +82,8 @@ public class TMail {
 	public String getHtmlContext() {
 		if(CollectionUtils.isNotEmpty(this.embededImages) && htmlContext != null) {
 			for (EmbededImage image : embededImages) {
-				String imageName = Base64.encodeBase64String(image.getContentDescription().getBytes(Charsets.UTF_8));
+				BASE64Encoder encoder = new BASE64Encoder();
+				String imageName = encoder.encode(image.getContentDescription().getBytes(Charsets.UTF_8));
 				htmlContext = htmlContext.replace("cid:" + image.getContentId(), "image/" + this.mailIntroduction.getMessageNumber() + "/" + imageName);
 			}
 		}
