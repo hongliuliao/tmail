@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.Charsets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.tmail.constants.TMailConstants;
 import org.tmail.utils.IOUtils;
-
-import sun.misc.BASE64Decoder;
 
 /**
  * @author hongliuliao
@@ -37,7 +36,7 @@ public class PhotoController {
 			@PathVariable("mailId") int mailId,
 			@PathVariable("imageName") String encodeImageName, 
 			HttpServletResponse response) throws Exception {
-		String imageName = new String(new BASE64Decoder().decodeBuffer(encodeImageName), Charsets.UTF_8);
+		String imageName = new String(Base64.decodeBase64(encodeImageName), Charsets.UTF_8);
 		File file = new File(TMailConstants.EMBEDDED_IMAGE_STORE_DIR + mailId + "/" + imageName);
 		if(!file.exists()) {
 			response.setStatus(404);
