@@ -67,6 +67,9 @@ public class TMailController {
 		try {
 			Account account = Account.parseFromJson(accountInfo);
 			int start = (page - 1) * PAGE_SIZE;
+			if(account == null) {
+				VCodeMsg.failOf("Account is null! make sure your login info is correct!");
+			}
 			Pagination<MailIntroduction> pagination = this.MailServiceImpl.getMailIntroductions(account, start, PAGE_SIZE);
 			MailListCodeMsg codeMsg = new MailListCodeMsg();
 			if(pagination == null) {
