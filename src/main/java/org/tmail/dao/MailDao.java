@@ -171,6 +171,9 @@ public class MailDao {
 				return folder.getMessageCount() - lastMessageNumber;
 			}
 		});
+        if (newMailCount == null) {
+            return 0;
+        }
 		return newMailCount.intValue();
 	}
 	
